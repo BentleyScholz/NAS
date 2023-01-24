@@ -21,7 +21,7 @@ if __name__ == '__main__':
     num_char_fields = 3 # Number of string columns to generate in the output file
 
     # Number of lines in the output file to write
-    lines_to_write = 100000
+    lines_to_write = 1000
 
     ################################################################################
     # List of integers

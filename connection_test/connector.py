@@ -2,6 +2,7 @@
 import mariadb
 import sys, os
 import pandas as pd
+import time
 
 # directory to look for data
 # Note: should be invoked from the upload.bash script, so current directory should be
@@ -92,12 +93,18 @@ if __name__ == "__main__":
     INSERT INTO {database_table} VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
     '''
 
-    values_tuple = [tuple(x) for x in df.values]
+    values_tuple = [list(x) for x in df.values]
 
     cur.executemany(
         query,
-        values_tuple[:1000]
+        values_tuple
     )
+
+    print('Sleeping')
+    time.sleep(15)
+    print('Go time')
+
+    conn.commit()
     
     ##################################################
     # query data to make sure the tables arent empty
@@ -115,3 +122,6 @@ if __name__ == "__main__":
             break
         else:
             print(x)
+        token += 1
+
+    conn.close()
